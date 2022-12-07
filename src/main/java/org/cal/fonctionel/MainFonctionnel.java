@@ -1,6 +1,9 @@
 package org.cal.fonctionel;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class MainFonctionnel {
 
@@ -14,7 +17,8 @@ public class MainFonctionnel {
             new Student("Yan", "Zhou", "F", 23, 99),
             new Student("Jeremy", "Mailhot", "M", 19, 95),
             new Student("Massi", "Massi", "M", 32, 68),
-            new Student("Manolo", "Racine", "M", 39, 59)
+            new Student("Manolo", "Racine", "M", 39, 59),
+            new Student("Manolo", "AAAA", "M", 39, 59)
     );
 
     public static void main(String[] args) {
@@ -30,15 +34,22 @@ public class MainFonctionnel {
     }
 
     private static List<Student> studentsSortedByAge() {
-        return null;
+        return students.stream()
+                .sorted(Comparator.comparingInt(Student::age))
+                .collect(Collectors.toList());
     }
 
     private static List<Student> studentsAgeGt25SortedDescByAge() {
-        return null;
+        return students.stream()
+                .filter(s -> s.age() < 25)
+                .sorted(Comparator.comparingInt(Student::age).reversed())
+                .collect(Collectors.toList());
     }
 
     private static List<Student> sortedByFirstNameThenByLastName() {
-        return null;
+        return students.stream()
+                .sorted(Comparator.comparing(Student::prenom).thenComparing(Student::nom))
+                .collect(Collectors.toList());
     }
 
     private static void groupByGenre() {
@@ -46,6 +57,9 @@ public class MainFonctionnel {
        // final Map<String, List<Student>> collect = students.stream()
         //System.out.println(collect);
         System.out.println();
+
+        final Map<String, List<Student>> collect = students.stream().collect(Collectors.groupingBy(s -> s.genre())) ;
+        System.out.println(collect);
 
         //{F=[Student[prenom=Yan, nom=Zhou, genre=F, age=23, noteGlobale=99]],
         // M=[Student[prenom=Samir, nom=Badi, genre=M, age=22, noteGlobale=90],

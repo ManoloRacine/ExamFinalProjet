@@ -7,24 +7,23 @@ package org.cal.strategyexercice;
  *
  */
 public class Personne {
-    public static String HEUREUSE = "Heureuse";
-    public static String TRISTE = "Triste";
-    public static String MALHEUREUSE = "Malheureuse";
-    private final String humeur;
-    public Personne(String humeur) {
+
+    private MoodType humeur;
+
+    public Personne(MoodType humeur) {
         this.humeur = humeur;
     }
 
-    public String getHumeur() {
-        return humeur;
+    public String whatYouNeed() {
+        return humeur.whatYouNeed() ;
     }
     @Override
     public String toString() {
-        return "Personne [humeur=" + humeur + "]";
+        return "Personne [humeur=" + humeur.moodString() + "]";
     }
 
     public void printHumeur() {
-        System.out.println(humeur);
+        System.out.println(humeur.moodString());
     }
 
 }
